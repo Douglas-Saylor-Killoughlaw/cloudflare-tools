@@ -1,6 +1,10 @@
-# Python Cloudflare Worker Route
+# Python Cloudflare Tools
 
-`Cloudflare Worker Route` was written in order to easily disable specific script from some route pattern on Cloudflare or to enable it back as required. I had several internal or test websites that are web protected by using Cloudflare using basic http auth. And this cause some issue when we were trying to run some page checks on this websites. So the purpose for this script is to disable the cloudflare worker before we will run the tests and enable it again when it's done as part of the jenkins pipeline
+`Cloudflare Tools` was written in order to easily enable/disable Cloudflare Worker/Access as required. I had several internal or test websites that are web protected by using Cloudflare Worker and Cloudflare Access. And this cause some issue when we were trying to run some page checks on this websites. So the purpose for this script is to disable the either Cloudflare Access/Worker before we will run the tests and re-enable it again when it's done as part of the jenkins pipeline. Currently it only supports several basic functions:
+* Disable script from specific cloudflare worker route pattern
+* Enable cloudflare worker on specific worker route pattern
+* Set Cloudflare Access App URL based on the specified name
+
 
 ## Requirements
 This script require Cloudflare module. Simply install it with
@@ -20,7 +24,10 @@ token = SomeRandomToken
 Run the script with:
 ```shell
 $ python3.7 cf_worker_route.py -d mydomain.com -r 'https://staging.mydomain.com/*' -s basic-http-auth
-Cloudflare script basic-http-auth have been enabled on https://staging.mydomain.com/* in mydomain.com
+Cloudflare script basic-http-auth has been enabled in https://staging.mydomain.com/* on mydomain.com
+
+$ python3.7 cf_access_app.py -d mydomain.com -n 'MyDomain Staging App' -u '_disabled.staging.mydomain.com/'
+Cloudflare Access App for MyDomain Staging App has been set to _disabled.staging.mydomain.com/ on mydomain.com
 ```
 
 ## Note

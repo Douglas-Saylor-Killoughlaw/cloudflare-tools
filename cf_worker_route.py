@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import argparse
-from src.cloudflare_worker import CloudflareWorker
+from src.cloudflare_tools import CloudflareTools
 
 parser = argparse.ArgumentParser()
 
@@ -13,10 +13,10 @@ parser.add_argument('-s', '--script', action='store', dest='script', default=Non
 args = parser.parse_args()
 
 def main():
-    cf = CloudflareWorker(args.domain)
-    success = cf.update_route(args.route, script=args.script)
+    cf = CloudflareTools(args.domain)
+    success = cf.update_worker_route(args.route, script=args.script)
     if success:
-        print('Cloudflare script %s have been enabled on %s in %s' %(args.script, args.route, args.domain))
+        print('Cloudflare script %s has been enabled in %s on %s' %(args.script, args.route, args.domain))
 
 if __name__ == "__main__":
     main()
